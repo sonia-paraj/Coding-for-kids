@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding for Kids – Ghevra Village, Delhi</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --yellow: #FFD600;
+  --yellow-light: #FFF9C4;
+  --yellow-dark: #F9A825;
+  --blue: #1565C0;
+  --blue-light: #E3F2FD;
+  --blue-mid: #1976D2;
+  --blue-dark: #0D47A1;
+  --white: #FFFFFF;
+  --gray-light: #F8F9FA;
+  --gray: #6B7280;
+  --dark: #1A1A2E;
+  --green: #00C853;
+  --orange: #FF6D00;
+  --pink: #E91E63;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 4px 24px rgba(21,101,192,0.12);
+  --shadow-lg: 0 8px 40px rgba(21,101,192,0.18);
+}
+
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  overflow-x: hidden;
+}
+h1,h2,h3,h4 { font-family: 'Baloo 2', cursive; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 50px;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 16px;
+  cursor: pointer; border: none; transition: all 0.25s ease;
+  text-decoration: none;
+}
+.btn-yellow {
+  background: var(--yellow); color: var(--blue-dark);
+  box-shadow: 0 4px 15px rgba(255,214,0,0.4);
+}
+.btn-yellow:hover { background: var(--yellow-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,214,0,0.5); }
+.btn-blue {
+  background: var(--blue); color: var(--white);
+  box-shadow: 0 4px 15px rgba(21,101,192,0.3);
+}
+.btn-blue:hover { background: var(--blue-dark); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: var(--blue);
+  border: 2.5px solid var(--blue); padding: 12px 26px;
+}
+.btn-outline:hover { background: var(--blue); color: var(--white); }
+.btn-whatsapp {
+  background: #25D366; color: white;
+  box-shadow: 0 4px 15px rgba(37,211,102,0.35);
+}
+.btn-whatsapp:hover { background: #1ebe5d; transform: translateY(-2px); }
+
+/* ===== SECTION TITLES ===== */
+.section-tag {
+  display: inline-block; background: var(--yellow-light);
+  color: var(--blue-dark); font-weight: 800; font-size: 13px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 50px; margin-bottom: 12px;
+  border: 1.5px solid var(--yellow);
+}
+.section-title {
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800; line-height: 1.2;
+  color: var(--blue-dark);
+  margin-bottom: 14px;
+}
+.section-title span { color: var(--yellow-dark); }
+.section-desc {
+  font-size: 17px; color: var(--gray);
+  max-width: 580px; line-height: 1.7;
+}
+.section-center { text-align: center; }
+.section-center .section-desc { margin: 0 auto; }
+
+/* ===== NAVBAR ===== */
+#navbar {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(21,101,192,0.1);
+  transition: box-shadow 0.3s;
+}
+#navbar.scrolled { box-shadow: var(--shadow); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; max-width: 1100px; margin: 0 auto;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.nav-logo-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--blue); display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.nav-logo-text { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 20px; color: var(--blue-dark); line-height: 1.1; }
+.nav-logo-text span { color: var(--yellow-dark); display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+.nav-links { display: flex; align-items: center; gap: 6px; }
+.nav-links a {
+  padding: 8px 16px; border-radius: 50px;
+  font-weight: 700; font-size: 15px; color: var(--dark);
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { background: var(--blue-light); color: var(--blue); }
+.nav-cta { margin-left: 8px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer;
+  padding: 6px; background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2.5px;
+  background: var(--blue-dark); border-radius: 3px; transition: all 0.3s;
+}
+.mobile-menu {
+  display: none; flex-direction: column;
+  background: white; padding: 16px 20px 20px;
+  border-top: 1px solid var(--blue-light);
+}
+.mobile-menu a {
+  padding: 12px 16px; border-radius: 10px;
+  font-weight: 700; font-size: 16px; color: var(--dark);
+  display: block; margin-bottom: 4px;
+}
+.mobile-menu a:hover { background: var(--blue-light); color: var(--blue); }
+.mobile-menu .btn { margin-top: 8px; text-align: center; justify-content: center; }
+.mobile-menu.open { display: flex; }
+
+/* ===== HERO ===== */
+#home {
+  min-height: 100vh; padding-top: 80px;
+  background: linear-gradient(135deg, #E3F2FD 0%, #FFF9C4 50%, #E3F2FD 100%);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center;
+}
+.hero-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hero-circle {
+  position: absolute; border-radius: 50%;
+  opacity: 0.12;
+}
+.hero-circle-1 { width: 500px; height: 500px; background: var(--blue); top: -150px; right: -100px; }
+.hero-circle-2 { width: 300px; height: 300px; background: var(--yellow); bottom: -80px; left: -80px; }
+.hero-circle-3 { width: 200px; height: 200px; background: var(--blue-mid); bottom: 100px; right: 100px; opacity: 0.08; }
+
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: center;
+  padding: 60px 20px; max-width: 1100px; margin: 0 auto; width: 100%;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--blue-dark);
+  font-weight: 800; font-size: 13px; padding: 8px 16px;
+  border-radius: 50px; margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(255,214,0,0.4);
+  letter-spacing: 0.5px;
+}
+.hero-badge span { font-size: 16px; }
+.hero-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900; line-height: 1.15;
+  color: var(--blue-dark); margin-bottom: 20px;
+}
+.hero-title em { font-style: normal; color: var(--yellow-dark); }
+.hero-desc {
+  font-size: 18px; color: #4A5568; line-height: 1.7;
+  margin-bottom: 32px; max-width: 480px;
+}
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 36px; }
+.hero-stats {
+  display: flex; gap: 28px; flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: 'Baloo 2', cursive; font-size: 28px; font-weight: 800; color: var(--blue-dark); }
+.hero-stat-label { font-size: 13px; color: var(--gray); font-weight: 600; }
+
+.hero-visual {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hero-illustration {
+  width: 100%; max-width: 440px;
+  background: white; border-radius: 24px;
+  padding: 24px; box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.code-window {
+  background: var(--dark); border-radius: 14px; padding: 20px; margin-bottom: 16px;
+}
+.code-dots { display: flex; gap: 7px; margin-bottom: 14px; }
+.code-dot { width: 12px; height: 12px; border-radius: 50%; }
+.code-line { height: 10px; border-radius: 5px; margin-bottom: 10px; }
+.hero-kid-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kid-card {
+  background: var(--blue-light); border-radius: 12px; padding: 14px 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-align: center;
+}
+.kid-card-icon { font-size: 28px; }
+.kid-card-text { font-size: 12px; font-weight: 700; color: var(--blue-dark); }
+.floating-badge {
+  position: absolute; background: white; border-radius: 12px;
+  padding: 10px 14px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  font-weight: 800; font-size: 13px; display: flex; align-items: center; gap: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+.floating-badge-1 { top: -16px; left: -16px; color: var(--blue-dark); }
+.floating-badge-2 { bottom: -16px; right: -16px; color: var(--green); }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ===== ABOUT SECTION ===== */
+#about { padding: 90px 0; background: var(--white); }
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+}
+.about-visual {
+  background: linear-gradient(135deg, var(--blue-light), var(--yellow-light));
+  border-radius: 24px; padding: 36px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.teacher-card {
+  background: white; border-radius: 20px; padding: 24px;
+  text-align: center; box-shadow: var(--shadow); width: 100%;
+}
+.teacher-avatar {
+  width: 90px; height: 90px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px; margin: 0 auto 14px;
+  box-shadow: 0 4px 16px rgba(21,101,192,0.3);
+}
+.teacher-name { font-family: 'Baloo 2', cursive; font-size: 22px; font-weight: 800; color: var(--blue-dark); margin-bottom: 4px; }
+.teacher-role { color: var(--gray); font-size: 14px; font-weight: 600; }
+.teacher-badge {
+  display: inline-block; background: var(--yellow); color: var(--blue-dark);
+  font-size: 12px; font-weight: 800; padding: 4px 14px; border-radius: 50px; margin-top: 10px;
+}
+.about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+.value-card {
+  background: white; border-radius: 14px; padding: 16px 14px;
+  box-shadow: var(--shadow); text-align: center;
+}
+.value-icon { font-size: 28px; margin-bottom: 6px; }
+.value-text { font-size: 13px; font-weight: 700; color: var(--blue-dark); }
+
+.about-content { }
+.about-list { margin: 24px 0; display: flex; flex-direction: column; gap: 14px; }
+.about-list-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--gray-light); padding: 16px; border-radius: 14px;
+}
+.about-list-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--blue); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.about-list-text h4 { font-size: 15px; font-weight: 800; color: var(--blue-dark); margin-bottom: 3px; }
+.about-list-text p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+/* ===== COURSES ===== */
+#courses { padding: 90px 0; background: var(--gray-light); }
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+.course-card {
+  background: white; border-radius: 20px; overflow: hidden;
+  box-shadow: var(--shadow); transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--yellow); }
+.course-card-header {
+  padding: 28px 28px 20px;
+  position: relative; overflow: hidden;
+}
+.course-card-icon { font-size: 48px; margin-bottom: 12px; display: block; }
+.course-card-title { font-size: 22px; font-weight: 800; color: var(--blue-dark); margin-bottom: 6px; }
+.course-card-level {
+  display: inline-block; font-size: 12px; font-weight: 800;
+  padding: 4px 12px; border-radius: 50px; letter-spacing: 0.5px;
+}
+.level-beginner { background: #E8F5E9; color: #2E7D32; }
+.level-intermediate { background: #FFF8E1; color: #F57F17; }
+.level-advanced { background: #E3F2FD; color: #1565C0; }
+.course-card-body { padding: 0 28px 28px; }
+.course-card-desc { color: var(--gray); font-size: 15px; line-height: 1.6; margin-bottom: 16px; }
+.course-card-meta {
+  display: flex; gap: 16px; margin-bottom: 16px;
+}
+.course-meta-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--blue);
+}
+.course-learn { margin-bottom: 16px; }
+.course-learn h4 { font-size: 14px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+.course-learn ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.course-learn ul li {
+  font-size: 13px; color: var(--gray); display: flex; align-items: flex-start; gap: 8px;
+}
+.course-learn ul li::before { content: "✓"; color: var(--green); font-weight: 800; flex-shrink: 0; }
+.course-header-bg {
+  position: absolute; top: -20px; right: -20px;
+  width: 100px; height: 100px; border-radius: 50%; opacity: 0.08;
+}
+
+/* ===== WHY CHOOSE US ===== */
+#why { padding: 90px 0; background: var(--blue-dark); }
+#why .section-title { color: white; }
+#why .section-title span { color: var(--yellow); }
+#why .section-tag { background: rgba(255,214,0,0.2); color: var(--yellow); border-color: var(--yellow); }
+#why .section-desc { color: rgba(255,255,255,0.75); }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 48px; }
+.why-card {
+  background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 20px; padding: 28px 24px;
+  transition: all 0.3s;
+}
+.why-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+.why-icon {
+  width: 58px; height: 58px; border-radius: 16px;
+  background: var(--yellow); display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin-bottom: 16px;
+}
+.why-title { font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
+.why-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+/* ===== BENEFITS ===== */
+#benefits { padding: 90px 0; background: var(--white); }
+.benefits-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.benefits-list { display: flex; flex-direction: column; gap: 16px; }
+.benefit-item {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 18px; border-radius: 16px; background: var(--gray-light);
+  transition: all 0.2s;
+}
+.benefit-item:hover { background: var(--blue-light); }
+.benefit-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: var(--yellow); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.benefit-text h4 { font-size: 16px; font-weight: 800; color: var(--blue-dark); margin-bottom: 4px; }
+.benefit-text p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+.benefits-visual {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+  border-radius: 24px; padding: 36px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.benefits-visual-title { font-size: 24px; font-weight: 800; color: white; text-align: center; margin-bottom: 8px; }
+.cert-mockup {
+  background: white; border-radius: 16px; padding: 20px;
+  text-align: center; margin-bottom: 8px;
+}
+.cert-title { font-size: 13px; color: var(--gray); margin-bottom: 4px; }
+.cert-name { font-family: 'Baloo 2', cursive; font-size: 20px; font-weight: 800; color: var(--blue-dark); }
+.cert-course { font-size: 13px; color: var(--gray); margin-top: 4px; }
+.skill-bars { display: flex; flex-direction: column; gap: 12px; }
+.skill-bar-item { }
+.skill-bar-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: white; margin-bottom: 6px; }
+.skill-bar-track { height: 8px; background: rgba(255,255,255,0.15); border-radius: 99px; overflow: hidden; }
+.skill-bar-fill { height: 100%; border-radius: 99px; background: var(--yellow); }
+
+/* ===== TESTIMONIALS ===== */
+#testimonials { padding: 90px 0; background: var(--yellow-light); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
+.testimonial-card {
+  background: white; border-radius: 20px; padding: 28px 24px;
+  box-shadow: var(--shadow); position: relative;
+}
+.testimonial-quote { font-size: 48px; color: var(--yellow); font-family: Georgia; line-height: 0.8; margin-bottom: 12px; }
+.testimonial-text { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 800; color: white;
+}
+.testimonial-name { font-size: 15px; font-weight: 800; color: var(--blue-dark); }
+.testimonial-role { font-size: 12px; color: var(--gray); }
+.stars { color: var(--yellow-dark); font-size: 14px; margin-bottom: 10px; }
+
+/* ===== FAQ ===== */
+#faq { padding: 90px 0; background: var(--white); }
+.faq-list { max-width: 760px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  border: 1.5px solid #E5E7EB; border-radius: 14px; overflow: hidden;
+}
+.faq-question {
+  width: 100%; background: none; border: none; padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; text-align: left;
+  font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 800;
+  color: var(--blue-dark); transition: background 0.2s;
+}
+.faq-question:hover { background: var(--blue-light); }
+.faq-question .faq-icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--blue-light); color: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 800; flex-shrink: 0; transition: transform 0.3s;
+}
+.faq-answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.faq-answer-inner {
+  padding: 0 24px 20px;
+  font-size: 15px; color: var(--gray); line-height: 1.7;
+  border-top: 1px solid #E5E7EB;
+  padding-top: 16px;
+}
+.faq-item.open .faq-question { background: var(--blue-light); }
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--blue); color: white; }
+.faq-item.open .faq-answer { max-height: 200px; }
+
+/* ===== CTA SECTION ===== */
+#cta {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-dark) 100%);
+  text-align: center;
+}
+#cta .section-title { color: var(--blue-dark); }
+#cta .section-desc { color: var(--blue-dark); opacity: 0.8; margin: 0 auto 32px; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== CONTACT ===== */
+#contact { padding: 90px 0; background: var(--gray-light); }
+.contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.contact-info { }
+.contact-info-title { font-size: 28px; font-weight: 800; color: var(--blue-dark); margin-bottom: 24px; }
+.contact-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+.contact-card {
+  background: white; border-radius: 14px; padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow);
+}
+.contact-card-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+.contact-card-label { font-size: 12px; color: var(--gray); font-weight: 600; }
+.contact-card-value { font-size: 16px; font-weight: 800; color: var(--blue-dark); }
+.contact-map {
+  background: var(--blue-light); border-radius: 16px; padding: 20px;
+  text-align: center; display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 12px; min-height: 130px;
+}
+.contact-map-icon { font-size: 36px; }
+.contact-map-text { font-size: 15px; font-weight: 700; color: var(--blue-dark); }
+.contact-map-sub { font-size: 13px; color: var(--gray); }
+
+/* Contact Form */
+.contact-form-card {
+  background: white; border-radius: 20px; padding: 36px;
+  box-shadow: var(--shadow);
+}
+.contact-form-title { font-size: 24px; font-weight: 800; color: var(--blue-dark); margin-bottom: 24px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block; font-size: 14px; font-weight: 700;
+  color: var(--blue-dark); margin-bottom: 7px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%; padding: 12px 16px;
+  border: 1.5px solid #E5E7EB; border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 15px; color: var(--dark);
+  transition: border-color 0.2s; background: var(--gray-light);
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--blue); background: white; }
+.form-group textarea { min-height: 110px; resize: vertical; }
+.form-success {
+  display: none; background: #E8F5E9; border-radius: 10px;
+  padding: 14px 18px; color: #2E7D32; font-weight: 700;
+  text-align: center; margin-top: 12px; font-size: 15px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--dark); color: white; padding: 60px 0 0;
+}
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand { }
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--yellow); display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.footer-logo-text { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 20px; color: white; }
+.footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+.footer-socials { display: flex; gap: 10px; }
+.social-btn {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: pointer; transition: background 0.2s; text-decoration: none;
+}
+.social-btn:hover { background: var(--yellow); }
+.footer-col h4 { font-size: 16px; font-weight: 800; color: white; margin-bottom: 16px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--yellow); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 20px 0; display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.footer-bottom-text { font-size: 14px; color: rgba(255,255,255,0.5); }
+.footer-bottom-text span { color: var(--yellow); }
+
+/* ===== FLOATING WHATSAPP ===== */
+.whatsapp-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 999;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+  text-decoration: none; transition: all 0.3s;
+  animation: pulse-green 2s infinite;
+}
+.whatsapp-float:hover { transform: scale(1.1); background: #1ebe5d; }
+@keyframes pulse-green {
+  0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5)}
+  50%{box-shadow:0 4px 30px rgba(37,211,102,0.8)}
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity: 0; transform: translateY(28px); transition: all 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .about-inner { grid-template-columns: 1fr; }
+  .benefits-inner { grid-template-columns: 1fr; }
+  .contact-inner { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+}
+@media(max-width:768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  #home { min-height: auto; padding: 100px 0 60px; }
+  .hero-title { font-size: 32px; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns .btn { justify-content: center; }
+  .footer-bottom { justify-content: center; text-align: center; }
+}
+@media(max-width:480px) {
+  .courses-grid { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+<a href="https://wa.me/918178561763?text=Hello%21%20I%20want%20to%20know%20more%20about%20Coding%20for%20Kids." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">💻</div>
+      <div class="nav-logo-text">
+        Coding for Kids
+        <span>📍 Ghevra Village, Delhi</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-yellow nav-cta" style="padding:10px 20px;font-size:14px">Join Free Demo ✨</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">🏠 Home</a>
+    <a href="#about">👩‍🏫 About</a>
+    <a href="#courses">📚 Courses</a>
+    <a href="#faq">❓ FAQ</a>
+    <a href="#contact">📞 Contact</a>
+    <a href="#contact" class="btn btn-yellow">Join Free Demo ✨</a>
+  </div>
+</nav>
+
+<!-- ===== HERO SECTION ===== -->
+<section id="home">
+  <div class="hero-shapes">
+    <div class="hero-circle hero-circle-1"></div>
+    <div class="hero-circle hero-circle-2"></div>
+    <div class="hero-circle hero-circle-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span>🚀</span> Delhi's Best Kids Coding Institute</div>
+      <h1 class="hero-title">
+        Give Your Child the<br>
+        <em>Superpower</em> of<br>
+        Coding & AI! 🤖
+      </h1>
+      <p class="hero-desc">
+        From Python to Artificial Intelligence — we teach technology to kids aged 10–18 in the simplest, most fun way possible. <strong>Based in Ghevra Village, Delhi.</strong>
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-yellow">🎉 Join Free Demo Class</a>
+        <a href="#courses" class="btn btn-outline">📚 View Courses</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">200+</div>
+          <div class="hero-stat-label">Students Taught</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">5</div>
+          <div class="hero-stat-label">Courses Offered</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">Practical Learning</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">5★</div>
+          <div class="hero-stat-label">Parent Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-illustration">
+        <div class="floating-badge floating-badge-1">🎓 Free Demo Class!</div>
+        <div class="code-window">
+          <div class="code-dots">
+            <div class="code-dot" style="background:#FF5F57"></div>
+            <div class="code-dot" style="background:#FFBD2E"></div>
+            <div class="code-dot" style="background:#28CA41"></div>
+          </div>
+          <div class="code-line" style="background:#FFD600;width:60%"></div>
+          <div class="code-line" style="background:#4FC3F7;width:85%"></div>
+          <div class="code-line" style="background:#A5D6A7;width:45%"></div>
+          <div class="code-line" style="background:#4FC3F7;width:70%"></div>
+          <div class="code-line" style="background:#FFD600;width:50%"></div>
+          <div class="code-line" style="background:#EF9A9A;width:65%"></div>
+        </div>
+        <div class="hero-kid-cards">
+          <div class="kid-card"><div class="kid-card-icon">🐍</div><div class="kid-card-text">Python</div></div>
+          <div class="kid-card"><div class="kid-card-icon">📊</div><div class="kid-card-text">Excel</div></div>
+          <div class="kid-card"><div class="kid-card-icon">🤖</div><div class="kid-card-text">AI / ML</div></div>
+          <div class="kid-card"><div class="kid-card-icon">⌨️</div><div class="kid-card-text">Typing</div></div>
+        </div>
+        <div class="floating-badge floating-badge-2">✅ Age 10–18 Years</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT SECTION ===== -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-visual reveal">
+        <div class="teacher-card">
+          <div class="teacher-avatar">👩‍💻</div>
+          <div class="teacher-name">Sonia Paraj</div>
+          <div class="teacher-role">Computer Science Teacher & Founder</div>
+          <div class="teacher-badge">🏆 Expert Educator</div>
+        </div>
+        <div class="about-values">
+          <div class="value-card">
+            <div class="value-icon">🎯</div>
+            <div class="value-text">Practical First</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">😊</div>
+            <div class="value-text">Fun Learning</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">👨‍👩‍👧</div>
+            <div class="value-text">Small Batches</div>
+          </div>
+          <div class="value-card">
+            <div class="value-icon">📜</div>
+            <div class="value-text">Certificates</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <div class="section-tag">About Us</div>
+        <h2 class="section-title">Teaching <span>Tech Skills</span> to the Next Generation</h2>
+        <p class="section-desc">Coding for Kids is a dedicated computer education institute in Ghevra Village, Delhi. We believe every child deserves to understand and use technology — not just as a user, but as a <strong>creator and innovator.</strong></p>
+        <div class="about-list">
+          <div class="about-list-item">
+            <div class="about-list-icon">🎯</div>
+            <div class="about-list-text">
+              <h4>Our Mission</h4>
+              <p>To teach coding, AI, and digital skills to kids in the simplest, most engaging way — making technology accessible to every child in Delhi.</p>
+            </div>
+          </div>
+          <div class="about-list-item">
+            <div class="about-list-icon">📍</div>
+            <div class="about-list-text">
+              <h4>Our Location</h4>
+              <p>Conveniently located in Ghevra Village, Delhi — serving students from the local community and nearby areas.</p>
+            </div>
+          </div>
+          <div class="about-list-item">
+            <div class="about-list-icon">👶</div>
+            <div class="about-list-text">
+              <h4>Who We Teach</h4>
+              <p>Students aged 10 to 18 years — from Class 5 to Class 12. No prior computer knowledge required!</p>
+            </div>
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-blue">📞 Contact Us Today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COURSES SECTION ===== -->
+<section id="courses">
+  <div class="container">
+    <div class="section-center reveal">
+      <div class="section-tag">Our Courses</div>
+      <h2 class="section-title">5 Powerful <span>Courses</span> for Kids</h2>
+      <p class="section-desc">All courses are designed for students aged 10–18 with no prior experience. Learn at your own pace with hands-on projects!</p>
+    </div>
+    <div class="courses-grid">
+
+      <!-- Python -->
+      <div class="course-card reveal">
+        <div class="course-card-header" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">
+          <div class="course-header-bg" style="background:var(--blue)"></div>
+          <span class="course-card-icon">🐍</span>
+          <div class="course-card-title">Python Programming</div>
+          <span class="course-card-level level-beginner">Beginner to Advanced</span>
+        </div>
+        <div class="course-card-body">
+          <p class="course-card-desc">The world's most popular programming language — perfect for beginners. Build games, apps, and automation scripts!</p>
+          <div class="course-card-meta">
+            <div class="course-meta-item">⏱ 3–4 Months</div>
+            <div class="course-meta-item">🧑‍💻 Age 10+</div>
+          </div>
+          <div class="course-learn">
+            <h4>What you'll learn:</h4>
+            <ul>
+              <li>Variables, loops, and functions</li>
+              <li>Build simple games & projects</li>
+              <li>Data handling & file operations</li>
+              <li>Introduction to problem solving</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-blue" style="width:100%;justify-content:center">Enroll Now →</a>
+        </div>
+      </div>
+
+      <!-- Excel -->
+      <div class="course-card reveal">
+        <div class="course-card-header" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">
+          <div class="course-header-bg" style="background:#2E7D32"></div>
+          <span class="course-card-icon">📊</span>
+          <div class="course-card-title">Microsoft Excel</div>
+          <span class="course-card-level level-intermediate">Basic to Advanced</span>
+        </div>
+        <div class="course-card-body">
+          <p class="course-card-desc">Master Excel — the skill that every office and business needs. Great for students planning for future jobs!</p>
+          <div class="course-card-meta">
+            <div class="course-meta-item">⏱ 2 Months</div>
+            <div class="course-meta-item">🧑‍💻 Age 12+</div>
+          </div>
+          <div class="course-learn">
+            <h4>What you'll learn:</h4>
+            <ul>
+              <li>Formulas, charts & pivot tables</li>
+              <li>Data analysis & dashboards</li>
+              <li>VLOOKUP and advanced functions</li>
+              <li>Real-world business projects</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-blue" style="width:100%;justify-content:center">Enroll Now →</a>
+        </div>
+      </div>
+
+      <!-- Tally -->
+      <div class="course-card reveal">
+        <div class="course-card-header" style="background:linear-gradient(135deg,#FFF3E0,#FFE0B2)">
+          <div class="course-header-bg" style="background:#E65100"></div>
+          <span class="course-card-icon">🧾</span>
+          <div class="course-card-title">Tally Accounting</div>
+          <span class="course-card-level level-beginner">Beginner Level</span>
+        </div>
+        <div class="course-card-body">
+          <p class="course-card-desc">Learn Tally — India's #1 accounting software. Perfect for commerce students and future business professionals!</p>
+          <div class="course-card-meta">
+            <div class="course-meta-item">⏱ 1.5 Months</div>
+            <div class="course-meta-item">🧑‍💻 Age 14+</div>
+          </div>
+          <div class="course-learn">
+            <h4>What you'll learn:</h4>
+            <ul>
+              <li>Accounts basics & ledger entries</li>
+              <li>GST billing & invoices</li>
+              <li>Stock management</li>
+              <li>Balance sheet & profit/loss</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-blue" style="width:100%;justify-content:center">Enroll Now →</a>
+        </div>
+      </div>
+
+      <!-- Typing -->
+      <div class="course-card reveal">
+        <div class="course-card-header" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0)">
+          <div class="course-header-bg" style="background:#880E4F"></div>
+          <span class="course-card-icon">⌨️</span>
+          <div class="course-card-title">Typing Skills</div>
+          <span class="course-card-level level-beginner">Speed & Accuracy</span>
+        </div>
+        <div class="course-card-body">
+          <p class="course-card-desc">Fast and accurate typing is a must-have skill in today's world. Start from scratch and reach professional speed!</p>
+          <div class="course-card-meta">
+            <div class="course-meta-item">⏱ 1 Month</div>
+            <div class="course-meta-item">🧑‍💻 Age 10+</div>
+          </div>
+          <div class="course-learn">
+            <h4>What you'll learn:</h4>
+            <ul>
+              <li>Home row technique (touch typing)</li>
+              <li>English & Hindi typing</li>
+              <li>Speed building exercises</li>
+              <li>Govt exam typing preparation</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-blue" style="width:100%;justify-content:center">Enroll Now →</a>
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div class="course-card reveal" style="border:2px solid var(--yellow)">
+        <div class="course-card-header" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">
+          <div class="course-header-bg" style="background:#6A1B9A"></div>
+          <div style="position:absolute;top:16px;right:16px;background:var(--yellow);color:var(--blue-dark);font-size:11px;font-weight:800;padding:4px 12px;border-radius:50px">🔥 NEW!</div>
+          <span class="course-card-icon">🤖</span>
+          <div class="course-card-title">Artificial Intelligence</div>
+          <span class="course-card-level level-beginner">Beginner (For Kids)</span>
+        </div>
+        <div class="course-card-body">
+          <p class="course-card-desc">The future is AI! Learn what Artificial Intelligence is, how it works, and how to use AI tools in everyday life — made simple for kids!</p>
+          <div class="course-card-meta">
+            <div class="course-meta-item">⏱ 2 Months</div>
+            <div class="course-meta-item">🧑‍💻 Age 12+</div>
+          </div>
+          <div class="course-learn">
+            <h4>What you'll learn:</h4>
+            <ul>
+              <li>What is AI, ML & ChatGPT</li>
+              <li>Using AI tools creatively</li>
+              <li>Simple AI projects with Python</li>
+              <li>Future of AI in careers</li>
+            </ul>
+          </div>
+          <a href="#contact" class="btn btn-yellow" style="width:100%;justify-content:center">Enroll Now →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section id="why">
+  <div class="container">
+    <div class="section-center reveal">
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title">Why Parents <span>Love</span> Us ❤️</h2>
+      <p class="section-desc">We are not just a computer class — we are a place where children grow, learn, and build their future confidently.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">👥</div>
+        <div class="why-title">Small Batches</div>
+        <div class="why-desc">Maximum 10 students per batch so every child gets personal attention from the teacher. No one gets left behind!</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">💻</div>
+        <div class="why-title">100% Practical</div>
+        <div class="why-desc">We believe in learning by doing. Every class includes hands-on computer practice — not just theory from books.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">🆓</div>
+        <div class="why-title">Free Demo Class</div>
+        <div class="why-desc">Not sure? Try a free demo class first! Let your child experience our teaching before you decide to enroll.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">📜</div>
+        <div class="why-title">Certificate Given</div>
+        <div class="why-desc">Every student gets a certificate on course completion — useful for school portfolios and future job applications.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">💰</div>
+        <div class="why-title">Affordable Fees</div>
+        <div class="why-desc">Quality education should not be expensive. Our fees are designed to be accessible for every family in the community.</div>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">👩‍💻</div>
+        <div class="why-title">Expert Teacher</div>
+        <div class="why-desc">Taught by a qualified Computer Science teacher with years of experience in teaching technology to young students.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STUDENT BENEFITS ===== -->
+<section id="benefits">
+  <div class="container">
+    <div class="benefits-inner">
+      <div class="reveal">
+        <div class="section-tag">Student Benefits</div>
+        <h2 class="section-title">What Your Child <span>Gains</span> 🌟</h2>
+        <p class="section-desc" style="margin-bottom:28px">Every student who joins Coding for Kids walks away with skills, confidence, and a head start in the digital world.</p>
+        <div class="benefits-list">
+          <div class="benefit-item">
+            <div class="benefit-icon">🧠</div>
+            <div class="benefit-text">
+              <h4>Logical Thinking Skills</h4>
+              <p>Coding teaches children to think step-by-step and solve problems — skills that help in every subject!</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💼</div>
+            <div class="benefit-text">
+              <h4>Career-Ready Skills</h4>
+              <p>Excel, Tally, and Python are skills demanded by every company — give your child an edge!</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🏆</div>
+            <div class="benefit-text">
+              <h4>Confidence & Creativity</h4>
+              <p>When kids build their own projects, they feel proud and motivated. Our environment celebrates every achievement.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">🤖</div>
+            <div class="benefit-text">
+              <h4>Future-Proof Knowledge</h4>
+              <p>AI is the future. Children who understand AI today will lead tomorrow. We prepare them early!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="benefits-visual reveal">
+        <div class="benefits-visual-title">🏅 Your Child's Progress</div>
+        <div class="cert-mockup">
+          <div class="cert-title">Certificate of Completion</div>
+          <div class="cert-name">⭐ Your Child's Name ⭐</div>
+          <div class="cert-course">Python Programming — Coding for Kids, Delhi</div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>🐍 Python Skills</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>📊 Excel Mastery</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>⌨️ Typing Speed</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>🤖 AI Knowledge</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-center reveal">
+      <div class="section-tag">Testimonials</div>
+      <h2 class="section-title">What Parents & <span>Students Say</span> 💬</h2>
+      <p class="section-desc">Real feedback from our community of students and parents in Ghevra Village, Delhi.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">My daughter was scared of computers. After just 2 months at Coding for Kids, she built her own Python project! The teacher explains everything so patiently.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--blue)">R</div>
+          <div>
+            <div class="testimonial-name">Rekha Sharma</div>
+            <div class="testimonial-role">Parent of Class 8 Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I learned Excel and Tally here and now I help my father in his shop! The course was very practical and the teacher made everything easy to understand.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--orange)">A</div>
+          <div>
+            <div class="testimonial-name">Arjun Verma</div>
+            <div class="testimonial-role">Student, Class 10</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Best institute in our area! Small batch size means my son gets individual attention. He loves the AI course and talks about it at dinner every day!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--green)">S</div>
+          <div>
+            <div class="testimonial-name">Suresh Kumar</div>
+            <div class="testimonial-role">Parent of Class 9 Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I joined the typing course and my speed went from 15 WPM to 45 WPM in just 30 days! This will definitely help me in government exams.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--pink)">P</div>
+          <div>
+            <div class="testimonial-name">Priya Singh</div>
+            <div class="testimonial-role">Student, Class 12</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Very affordable fees compared to other institutes. The quality of teaching is excellent. My child received a beautiful certificate after completing Python!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--blue-dark)">M</div>
+          <div>
+            <div class="testimonial-name">Meena Gupta</div>
+            <div class="testimonial-role">Parent of Class 7 Student</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">The free demo class convinced me immediately. The teaching style is fun and interactive. My son actually looks forward to going to class every day!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:var(--yellow-dark)">V</div>
+          <div>
+            <div class="testimonial-name">Vijay Yadav</div>
+            <div class="testimonial-role">Parent of Class 6 Student</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ SECTION ===== -->
+<section id="faq">
+  <div class="container">
+    <div class="section-center reveal">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Frequently Asked <span>Questions</span> ❓</h2>
+      <p class="section-desc">Got questions? We have answers! If you don't find yours here, feel free to call or WhatsApp us.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the minimum age to join Coding for Kids?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We welcome students aged 10 to 18 years (Class 5 to Class 12). No prior computer knowledge is required — we start from absolute basics!</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there a free demo class available?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes! We offer a completely free demo class for every student. You can experience our teaching style, meet the teacher, and see the classroom before deciding to enroll. Just call or WhatsApp us to schedule it.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What is the batch size? Will my child get individual attention?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes! We keep batches small — maximum 10 students per batch. This ensures every child gets personal attention and no one feels left behind. The teacher focuses on each student's progress.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do students need their own computer or laptop?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">No! Computers are provided at our institute for all classes. Students do not need to bring their own device. However, if they want to practice at home, they can use any basic laptop or desktop.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What certificate will my child receive?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">After completing any course, students receive a Course Completion Certificate from Coding for Kids institute. This certificate can be used in school portfolios, college applications, and even job applications in the future.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can my child join multiple courses at the same time?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Yes! Students can enroll in more than one course. We help create a schedule that does not conflict with school hours. Many students take Typing + Python or Excel + Tally together.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What are the class timings?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">We offer morning, afternoon, and evening batch options to suit school schedules. Timings are flexible and we try to accommodate each student's convenience. Please contact us to know the current available slots.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section id="cta">
+  <div class="container">
+    <div class="section-tag" style="background:rgba(21,101,192,0.15);color:var(--blue-dark);border-color:var(--blue)">🎉 Limited Seats Available</div>
+    <h2 class="section-title">Ready to Give Your Child a <span style="color:var(--blue-dark)">Bright Future?</span></h2>
+    <p class="section-desc">Join 200+ students who are already learning coding, AI, and digital skills at Coding for Kids, Ghevra Village, Delhi.</p>
+    <div class="cta-btns">
+      <a href="#contact" class="btn btn-blue">🎉 Book Free Demo Class</a>
+      <a href="https://wa.me/918178561763?text=Hello!%20I%20want%20to%20book%20a%20free%20demo%20class." class="btn btn-whatsapp" target="_blank">💬 WhatsApp Us</a>
+      <a href="tel:8178561763" class="btn btn-outline" style="border-color:var(--blue-dark);color:var(--blue-dark)">📞 Call Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section id="contact">
+  <div class="container">
+    <div class="section-center reveal" style="margin-bottom:48px">
+      <div class="section-tag">Contact Us</div>
+      <h2 class="section-title">Get In <span>Touch</span> With Us 📞</h2>
+      <p class="section-desc">Have questions or want to enroll? Reach out to us and we'll get back to you quickly!</p>
+    </div>
+    <div class="contact-inner">
+      <div class="reveal">
+        <div class="contact-info-title">Our Contact Details</div>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#E3F2FD">📞</div>
+            <div>
+              <div class="contact-card-label">Phone / Call Us</div>
+              <div class="contact-card-value"><a href="tel:8178561763">8178561763</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#E8F5E9">💬</div>
+            <div>
+              <div class="contact-card-label">WhatsApp</div>
+              <div class="contact-card-value"><a href="https://wa.me/918178561763" target="_blank">8178561763</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#FFF3E0">📧</div>
+            <div>
+              <div class="contact-card-label">Email</div>
+              <div class="contact-card-value"><a href="mailto:soniaparaj8@gmail.com">soniaparaj8@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-card-icon" style="background:#FCE4EC">📍</div>
+            <div>
+              <div class="contact-card-label">Address</div>
+              <div class="contact-card-value">Ghevra Village, Delhi</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-map">
+          <div class="contact-map-icon">🗺️</div>
+          <div class="contact-map-text">Coding for Kids</div>
+          <div class="contact-map-sub">Ghevra Village, Delhi — Near local community center</div>
+          <a href="https://maps.google.com/?q=Ghevra+Village+Delhi" target="_blank" class="btn btn-blue" style="margin-top:8px;padding:10px 20px;font-size:14px">📍 Open in Google Maps</a>
+        </div>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://wa.me/918178561763?text=Hello!%20I%20want%20to%20book%20a%20free%20demo%20class%20at%20Coding%20for%20Kids." target="_blank" class="btn btn-whatsapp">💬 WhatsApp Now</a>
+          <a href="tel:8178561763" class="btn btn-blue">📞 Call Now</a>
+        </div>
+      </div>
+      <div class="contact-form-card reveal">
+        <div class="contact-form-title">📝 Send Us a Message</div>
+        <form id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-group">
+            <label>Student's Name *</label>
+            <input type="text" placeholder="Enter student's full name" required>
+          </div>
+          <div class="form-group">
+            <label>Parent's Phone Number *</label>
+            <input type="tel" placeholder="Enter your phone number" required>
+          </div>
+          <div class="form-group">
+            <label>Student's Class / Age</label>
+            <select>
+              <option value="">Select class or age</option>
+              <option>Class 5 (Age 10)</option>
+              <option>Class 6 (Age 11)</option>
+              <option>Class 7 (Age 12)</option>
+              <option>Class 8 (Age 13)</option>
+              <option>Class 9 (Age 14)</option>
+              <option>Class 10 (Age 15)</option>
+              <option>Class 11 (Age 16)</option>
+              <option>Class 12 (Age 17–18)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Course Interested In</label>
+            <select>
+              <option value="">Select a course</option>
+              <option>Python Programming</option>
+              <option>Microsoft Excel</option>
+              <option>Tally Accounting</option>
+              <option>Typing Skills</option>
+              <option>Artificial Intelligence</option>
+              <option>Multiple Courses</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (Optional)</label>
+            <textarea placeholder="Any questions or special requirements?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-yellow" style="width:100%;justify-content:center;font-size:16px">🚀 Send Message & Book Demo</button>
+          <div class="form-success" id="formSuccess">✅ Thank you! We will contact you within 24 hours to schedule your free demo class.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">💻</div>
+          <div class="footer-logo-text">Coding for Kids</div>
+        </div>
+        <p class="footer-desc">Teaching Python, Excel, Tally, Typing & AI to kids aged 10–18 in Ghevra Village, Delhi. Our mission: make every child digitally confident and future-ready!</p>
+        <div class="footer-socials">
+          <a href="https://wa.me/918178561763" class="social-btn" target="_blank">💬</a>
+          <a href="mailto:soniaparaj8@gmail.com" class="social-btn">📧</a>
+          <a href="tel:8178561763" class="social-btn">📞</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">🏠 Home</a></li>
+          <li><a href="#about">👩‍💻 About Us</a></li>
+          <li><a href="#courses">📚 Courses</a></li>
+          <li><a href="#testimonials">💬 Reviews</a></li>
+          <li><a href="#faq">❓ FAQ</a></li>
+          <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Courses</h4>
+        <ul>
+          <li><a href="#courses">🐍 Python Programming</a></li>
+          <li><a href="#courses">📊 Microsoft Excel</a></li>
+          <li><a href="#courses">🧾 Tally Accounting</a></li>
+          <li><a href="#courses">⌨️ Typing Skills</a></li>
+          <li><a href="#courses">🤖 Artificial Intelligence</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-text">© 2025 <span>Coding for Kids</span> — Ghevra Village, Delhi. All rights reserved.</div>
+      <div class="footer-bottom-text">Made with ❤️ for the children of Delhi</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+/* Navbar scroll effect */
+window.addEventListener('scroll', function() {
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 30) { navbar.classList.add('scrolled'); }
+  else { navbar.classList.remove('scrolled'); }
+  highlightNav();
+});
+
+/* Highlight active nav link */
+function highlightNav() {
+  const sections = ['home','about','courses','why','benefits','testimonials','faq','contact'];
+  const links = document.querySelectorAll('.nav-links a');
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 100) { current = id; }
+  });
+  links.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) { a.classList.add('active'); }
+  });
+}
+
+/* Hamburger menu */
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-menu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobileMenu').classList.remove('open'));
+});
+
+/* Scroll reveal */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* FAQ toggle */
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) { item.classList.add('open'); }
+}
+
+/* Contact form */
+function submitForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = '⏳ Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('formSuccess').style.display = 'block';
+    btn.textContent = '✅ Message Sent!';
+    e.target.reset();
+    setTimeout(() => {
+      btn.textContent = '🚀 Send Message & Book Demo';
+      btn.disabled = false;
+      document.getElementById('formSuccess').style.display = 'none';
+    }, 5000);
+  }, 1200);
+}
+
+/* Smooth scroll for all anchor links */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
